@@ -1,0 +1,6 @@
+read(a);
+read(b);
+writeVar(a);
+writeln;
+writeVar(b);
+endp
