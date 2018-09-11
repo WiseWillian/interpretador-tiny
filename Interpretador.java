@@ -50,7 +50,17 @@ class Interpretador {
 			arq.proximaPalavra(); //Descarta o parenteses
 			trataComandoWriteVar(linha, arq.proximaPalavra());
 			linha++;
-		 }            		  
+		 } 
+		 else if(comandoAtual.equals("while")) {
+			arq.proximaPalavra(); //Descarta o parenteses
+			trataComandoWhile(linha, arq.proximaPalavra());
+			linha++;
+		 }
+		 else if(comandoAtual.equals("endw")) {
+			arq.proximaPalavra(); //Descarta o parenteses
+			trataComandoEndW(linha, arq.proximaPalavra());
+			linha++;
+		 }          		  
 	  } while (!comandoAtual.equals("endp"));
    }
    
@@ -79,6 +89,22 @@ class Interpretador {
    private void trataComandoWriteVar(int lin, String text) {
 	ComandoWriteVar c = new ComandoWriteVar(lin, text);
 	comandos.addElement(c);
+}
+
+private void trataComandoWhile(ArquivoFonte arq, Expressao exp, int lin) {
+	int linhaEnd = lin;
+
+	String comandoAtual = arq.proximaPalavra();
+	while(!comandoAtual.equals("endw"))
+		linhaEnd++;
+    ComandoWhile c = new ComandoWhile(lin, linhaEnd, exp); 
+    comandos.addElement(c);
+}
+
+private void trataComandoEndW(int lin) {
+	  
+    ComandoEndW c= new ComandoEndW(lin);
+    comandos.addElement(c);
 }
    
    public void executa() {
